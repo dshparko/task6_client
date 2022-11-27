@@ -1,17 +1,18 @@
 import Messenger from "./Messenger";
 import io from "socket.io-client";
-import {useState} from "react";
-import "./App.css"
+import { useState } from "react";
+import "./Login.css"
 
 const socket = io.connect("http://localhost:3001");
-
-function Login() {
-    const [username, setUsername] = useState("");
+function Login (){
+    const [sender, setSender] = useState("");
+    const [recipient, setRecipient]=useState("");
+    const [room, setRoom] = useState("");
     const [showChat, setShowChat] = useState(false);
 
     const joinRoom = () => {
-        if (username !== "") {
-            socket.emit("join_room");
+        if (sender !== "" &&recipient !== "" && room !== "") {
+            socket.emit("join_room", room,sender,recipient);
             setShowChat(true);
         }
     };
@@ -20,22 +21,35 @@ function Login() {
         <div className="App">
             {!showChat ? (
                 <div className="joinChatContainer">
-                    <h3>Join a chat</h3>
+                    <h3>Join A Chat</h3>
                     <input
                         type="text"
-                        placeholder="Username"
+                        placeholder="Sender"
                         onChange={(event) => {
-                            setUsername(event.target.value);
+                            setSender(event.target.value);
                         }}
                     />
-
-                    <button onClick={joinRoom}>Start a chat</button>
+                    <input
+                    type="text"
+                    placeholder="Recipient"
+                    onChange={(event) => {
+                        setRecipient(event.target.value);
+                    }}
+                />
+                    <input
+                        type="text"
+                        placeholder="Room ID..."
+                        onChange={(event) => {
+                            setRoom(event.target.value);
+                        }}
+                    />
+                    <button onClick={joinRoom}>Join A Room</button>
                 </div>
             ) : (
-                <Messenger socket={socket} username={username}/>
+                <Messenger socket={socket} sender={sender} room={room} />
             )}
         </div>
     );
-}
 
+}
 export default Login;

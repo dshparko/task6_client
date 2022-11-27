@@ -5,14 +5,14 @@ import Messenger from "./Messenger";
 function App() {
 
 
-  return (
- <BrowserRouter>
-   <Routes>
-     <Route path="/" element ={<Login/>}/>
-     <Route path="/messenger" element ={<Messenger/>}/>
-   </Routes>
- </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Login/>}/>
+                <Route path="/messenger" element={<Messenger/>}/>
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;
