@@ -31,8 +31,9 @@ const Messanger = (props) => {
             setTheme('')
         }
     }
+
     const data = props.data.map(e => {
-        if (e.recipient == sender) {
+        if (e.recipient === sender) {
             return (
                 <Message
                     key={e._id}
@@ -43,7 +44,11 @@ const Messanger = (props) => {
                 />
             )
         }
-    })
+        return null;
+    }
+    )
+
+
     return (
         <>
             <div className=' flex items-center flex-col container mx-auto'>
