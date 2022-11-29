@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {send} from '../actions/actions';
 import Message from './Message';
-import {Link} from "react-router-dom";
 
 
 const Messanger = (props) => {
 
 
+    const [stime, setTime] = useState('')
     const [value, setValue] = useState('')
     const [theme, setTheme] = useState('')
     const [recipient, setRecipient] = useState('')
@@ -15,31 +15,33 @@ const Messanger = (props) => {
     const sender = localStorage.getItem('sender');
 
 
+    const date =new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes();
     const sendMessage = async () => {
+        //   setTime(new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes())
 
         if (value.trim() === '' || theme.trim() === '') {
             alert('ur data is empty')
         } else {
 
-            send(sender, recipient, theme, value)
 
+            send(sender, recipient, theme, value, stime)
+            setTime('')
             setRecipient('')
             setValue('')
             setTheme('')
         }
     }
     const data = props.data.map(e => {
-        if (e.rciever == sender) {
+        if (e.recipient == sender) {
             return (
                 <Message
                     key={e._id}
+                    time={e.stime}
                     sender={e.sender}
                     title={e.title}
                     content={e.content}
                 />
             )
-        } else {
-            return
         }
     })
     return (
@@ -74,7 +76,10 @@ const Messanger = (props) => {
                     <div className=' flex justify-between w-full'>
 
                         <button
-                            onClick={sendMessage}
+                            onClick={() => {
+                                sendMessage();
+                                setTime(date);
+                            }}
                             className='bg-blue-700 rounded-md px-20 py-2 ml-14 hover:bg-amber-200 '
                         >
                             Send
@@ -92,8 +97,8 @@ const Messanger = (props) => {
                 </div>
                 {props.data.length > 0
                     ?
-                    <div className=' w-full'>{data.reverse()}</div>
-                    :
+                    <div className='w-full'>{data.reverse()}</div>
+                                        :
                     <div className=' text-white'>loading...</div>
                 }
             </div>
