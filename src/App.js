@@ -15,7 +15,7 @@ function App() {
 	const getAll = async () => {
         try {
 			let arr = []
-            const res = await axios.get(`https://task6server-production-5502.up.railway.app/api/auth/allmessages`,
+            const res = await axios.get(`http://localhost:5000/api/auth/allmessages`,
 
                     {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}}
         )

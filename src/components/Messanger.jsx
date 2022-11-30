@@ -104,7 +104,7 @@ const Messanger = (props) => {
                     ?
                     <div className='w-full'>{data.reverse()}</div>
                                         :
-                    <div className=' text-white'>loading...</div>
+                    <div className=' text-black'>loading...</div>
                 }
             </div>
         </>
