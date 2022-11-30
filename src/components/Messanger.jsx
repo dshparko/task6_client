@@ -6,7 +6,7 @@ import Message from './Message';
 const Messanger = (props) => {
 
 
-    const [stime, setTime] = useState('')
+    const [time, setTime] = useState('')
     const [value, setValue] = useState('')
     const [theme, setTheme] = useState('')
     const [recipient, setRecipient] = useState('')
@@ -15,16 +15,16 @@ const Messanger = (props) => {
     const sender = localStorage.getItem('sender');
 
 
-    const date =new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes();
+    let date = new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes();
     const sendMessage = async () => {
         //   setTime(new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes())
 
         if (value.trim() === '' || theme.trim() === '') {
-            alert('ur data is empty')
+            alert('ERROR!')
         } else {
 
 
-            send(sender, recipient, theme, value, stime)
+            send(sender, recipient, theme, value, time)
             setTime('')
             setRecipient('')
             setValue('')
@@ -33,19 +33,19 @@ const Messanger = (props) => {
     }
 
     const data = props.data.map(e => {
-        if (e.recipient === sender) {
-            return (
-                <Message
-                    key={e._id}
-                    time={e.stime}
-                    sender={e.sender}
-                    title={e.title}
-                    content={e.content}
-                />
-            )
+            if (e.recipient === sender) {
+                return (
+                    <Message
+                        key={e._id}
+                        sender={e.sender}
+                        title={e.title}
+                        content={e.content}
+                        time={e.time}
+                    />
+                )
+            }
+            return null;
         }
-        return null;
-    }
     )
 
 
@@ -103,7 +103,7 @@ const Messanger = (props) => {
                 {props.data.length > 0
                     ?
                     <div className='w-full'>{data.reverse()}</div>
-                                        :
+                    :
                     <div className=' text-white'>loading...</div>
                 }
             </div>
