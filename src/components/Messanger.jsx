@@ -14,6 +14,7 @@ const Messanger = (props) => {
 
     const sender = localStorage.getItem('sender');
 
+    const now = new Date();
 
     let date = new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes();
     const sendMessage = async () => {
@@ -22,10 +23,8 @@ const Messanger = (props) => {
         if (value.trim() === '' || theme.trim() === '') {
             alert('ERROR!')
         } else {
-
-
+            const time = now.toLocaleString();
             send(sender, recipient, theme, value, time)
-            setTime('')
             setRecipient('')
             setValue('')
             setTheme('')
@@ -40,7 +39,7 @@ const Messanger = (props) => {
                         sender={e.sender}
                         title={e.title}
                         content={e.content}
-                        time={e.time}
+                        stime={e.time}
                     />
                 )
             }
@@ -80,10 +79,10 @@ const Messanger = (props) => {
 
                     <div className=' flex justify-between w-full'>
 
-                        <button
-                            onClick={() => {
+                        <button value={String(new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes())}
+                            onClick={(e) => {
                                 sendMessage();
-                                setTime(date);
+                                {setTime(e.target.value)};
                             }}
                             className='bg-blue-700 rounded-md px-20 py-2 ml-14 hover:bg-amber-200 '
                         >
@@ -104,7 +103,7 @@ const Messanger = (props) => {
                     ?
                     <div className='w-full'>{data.reverse()}</div>
                     :
-                    <div className=' text-white'>loading...</div>
+                    <div className=' text-white'>Time: {time}</div>
                 }
             </div>
         </>

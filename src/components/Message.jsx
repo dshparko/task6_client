@@ -28,7 +28,7 @@ function Message(props) {
         <div className=' flex flex-col  rounded-lg border-4 p-2 my-4'>
             <Accordion defaultActiveKey="0">
                 <Card>
-                    <h2 className=' text-black font-bold text-lg'>Sender: {props.sender}, {props.time}</h2>
+                    <h2 className=' text-black font-bold text-lg'>Sender: {props.sender}, {props.stime}</h2>
                     <Card.Header>
                         <CustomToggle eventKey={props.id}>Theme: {props.title}</CustomToggle>
                     </Card.Header>

@@ -12,10 +12,10 @@ export const registration = async (name) => {
     }
 }
 
-export const send = async (sender, recipient, title, content, stime) => {
+export const send = async (sender, recipient, title, content, time) => {
     try {
         const response = await axios.post(`http://localhost:5000/api/auth/send`, {
-            sender, recipient, title, content, stime
+            sender, recipient, title, content, time
         })
         alert(response.data.message)
     } catch (e) {
